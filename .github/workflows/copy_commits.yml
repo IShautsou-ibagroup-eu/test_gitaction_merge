@@ -52,4 +52,5 @@ jobs:
             git push -f --all
             git push -f --tags
           fi
+          echo '${{ github.event.pull_request.head.sha }}'
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
