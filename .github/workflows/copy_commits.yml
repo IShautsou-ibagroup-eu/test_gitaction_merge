@@ -48,7 +48,7 @@ jobs:
           git config user.name "Ihar Shautsou"
           git status
           git remote add private https://github.com/${{ github.repository }}.git
-          git fetch --all
+          git remote update
           echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
           git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
