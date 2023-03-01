@@ -48,7 +48,7 @@ jobs:
           git config user.name "Ihar Shautsou"
           git status
           git remote add private https://github.com/${{ github.repository }}.git
-          echo ${{ github.repository }}
+          echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
           git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
