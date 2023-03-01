@@ -24,7 +24,7 @@ jobs:
         with:
           path: public_repo2
           token: ${{ secrets.GIT_PASS }}
-          repository: ${{ secrets.PUBLIC_REPO }}
+          repository: ${{ vars.PUBLIC_REPO }}
           ref: main
       - name: Clean public repo
         run: |
