@@ -54,7 +54,7 @@ jobs:
             git push -f --all
             git push -f --tags
           fi
-          echo "::set-env name=GIT_HASH::$(echo $GITHUB_SHA | cut -c1-7)"
+          GIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
           echo ${{ env.GIT_HASH }}
           curl -L \
             -X PATCH \
