@@ -46,6 +46,7 @@ jobs:
           cd public_repo2
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
+          echo ".github/workflows/" > .gitignore
           git status
           git remote add private https://github.com/${{ github.repository }}.git
           git remote update
