@@ -52,13 +52,6 @@ jobs:
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push origin main
           fi
-#         git add ./
-#         git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
-#         git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
-#         if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-#          git push -f --all
-#          git push -f --tags
-#         fi
           GIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
           echo ${{ env.GIT_HASH }}
           curl -L \
