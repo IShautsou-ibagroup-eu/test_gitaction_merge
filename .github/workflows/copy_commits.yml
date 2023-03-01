@@ -53,6 +53,7 @@ jobs:
             git push -f --tags
           fi
           GITHUB_HASH=$(echo $GITHUB_SHA | cut -c1-7)
+          echo $GITHUB_HASH
           curl -L \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
