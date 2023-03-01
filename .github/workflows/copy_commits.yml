@@ -44,7 +44,6 @@ jobs:
         run: |
           set -e
           cd public_repo2
-          echo ".github/workflows/*" > .gitignore
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git status
