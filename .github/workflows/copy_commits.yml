@@ -54,7 +54,7 @@ jobs:
           echo ${{ env.GIT_HASH }}
           git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
           rm -rf .github
-          ls -lah .git/refs/remotes/origin/main/
+          ls -lah .git/refs/remotes/origin/
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push origin main
           fi
