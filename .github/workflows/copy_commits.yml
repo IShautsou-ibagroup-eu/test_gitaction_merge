@@ -46,6 +46,7 @@ jobs:
           cd public_repo2
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
+          git checkout main
           git status
           git remote add private https://github.com/${{ github.repository }}.git
           echo https://github.com/${{ github.repository }}.git
