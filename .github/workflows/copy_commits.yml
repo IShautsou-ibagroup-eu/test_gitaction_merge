@@ -52,12 +52,12 @@ jobs:
             git push -f --all
             git push -f --tags
           fi
-          echo "$(git rev-parse --short "$GITHUB_SHA")"
+          echo "$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_HASH
           curl -L \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GIT_PASS }}"\
             -H "X-GitHub-Api-Version: 2022-11-28" \
              https://api.github.com/repos/IShautsou-ibagroup-eu/argocd-vf-test/actions/variables/LAST_GITHUB_SHA \
-            -d '{"name":"LAST_GITHUB_SHA","value":`$(git rev-parse --short "$GITHUB_SHA")`}'
+            -d '{"name":"LAST_GITHUB_SHA","value":"$GITHUB_HASH"}'
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
