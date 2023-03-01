@@ -52,10 +52,8 @@ jobs:
           git remote update
           echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
-          git merge --allow-unrelated-histories ${{ env.GIT_HASH }} --no-commit --no-ff
-          git reset -- .github/workflows
+          git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
           rm -rf .github
-          git commit
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push origin main
           fi
