@@ -10,7 +10,6 @@ on:
         description: 'Preview changes'
         default: true
 env:
-# Setting an environment variable with the value of a configuration variable
   GIT_HASH: ${{ vars.LAST_GITHUB_SHA }}
 
 jobs:
@@ -55,8 +54,8 @@ jobs:
             git push -f --all
             git push -f --tags
           fi
-          GIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
-          echo $GIT_HASH
+          echo "::set-env name=GIT_HASH::$(echo $GITHUB_SHA | cut -c1-7)"
+          echo ${{ env.GIT_HASH }}
           curl -L \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
