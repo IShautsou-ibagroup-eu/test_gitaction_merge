@@ -1,1 +1,0 @@
-# Argocd for vf-test
