@@ -16,20 +16,20 @@ jobs:
   release_code:
     runs-on: ubuntu-latest
     steps:
-#       - name: Clone private repo
-#         uses: actions/checkout@v2
-#         with:
-#           path: private_repo
-#           ref: main
-#           fetch-depth: 0
-#       - name: Clone public repo
-#         uses: actions/checkout@v2
-#         with:
-#           path: public_repo2
-#           token: ${{ secrets.GIT_PASS }}
-#           repository: ${{ vars.PUBLIC_REPO }}
-#           ref: main
-#           fetch-depth: 0
+      - name: Clone private repo
+        uses: actions/checkout@v2
+        with:
+          path: private_repo
+          ref: main
+          fetch-depth: 0
+      - name: Clone public repo
+        uses: actions/checkout@v2
+        with:
+          path: public_repo2
+          token: ${{ secrets.GIT_PASS }}
+          repository: ${{ vars.PUBLIC_REPO }}
+          ref: main
+          fetch-depth: 0
 #       - name: Clean public repo
 #         run: |
 #           set -e
@@ -86,12 +86,12 @@ jobs:
       - name: Commits to public repo
         run: |
           set -e
-          git clone --mirror https://github.com/${{ github.repository }}.git new-repo
-          cd new-repo
+          cd private_repo
           git remote remove origin
           git remote add origin https://github.com/IShautsou-ibagroup-eu/test_clean_copy.git
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
+          git rm .github
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
