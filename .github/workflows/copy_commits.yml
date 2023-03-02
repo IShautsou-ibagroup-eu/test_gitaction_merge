@@ -53,13 +53,13 @@ jobs:
           echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
           git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
-          rm -rf .github
-          find -name *.yml 
+          git rm -r .github
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push origin main
           fi
           GIT_HASH=$(echo $GITHUB_SHA)
           echo ${{ env.GIT_HASH }}
+          echo $GIT_HASH
           curl -L \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
