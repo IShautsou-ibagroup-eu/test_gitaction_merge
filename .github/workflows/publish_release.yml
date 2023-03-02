@@ -19,7 +19,6 @@ jobs:
         with:
           path: private_repo
           ref: main
-          fetch-depth: 0
       - name: Clone public repo
         uses: actions/checkout@v2
         with:
@@ -27,7 +26,6 @@ jobs:
           token: ${{ secrets.GIT_PASS }}
           repository: ${{ vars.PUBLIC_REPO }}
           ref: main
-          fetch-depth: 0
       - name: Clean public repo
         run: |
           set -e
