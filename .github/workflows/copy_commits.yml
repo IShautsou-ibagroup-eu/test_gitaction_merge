@@ -48,7 +48,6 @@ jobs:
           git config user.name "Ihar Shautsou"
           git status
           git remote add private https://github.com/${{ github.repository }}.git
-          echo ".github/workflows/" > .gitignore
           git remote update
           echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
