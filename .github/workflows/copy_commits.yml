@@ -54,9 +54,11 @@ jobs:
           echo ${{ env.GIT_HASH }}
           git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
           git rm -r .github
-          git commit -m "Remove workflows"
+          git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
+          git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push origin main
+            git push -f --all
+            git push -f --tags
           fi
           NEW_HASH=$(echo $GITHUB_SHA)
           echo ${{ env.GIT_HASH }}
