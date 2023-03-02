@@ -40,32 +40,53 @@ jobs:
 #           rsync -crlvE ./private_repo/ ./public_repo/ \
 #           --exclude .git --exclude .travis.yml --exclude .github \
 #           --exclude sonar-project.properties
+#       - name: Commits to public repo
+#         run: |
+#           set -e
+#           cd public_repo2
+#           git config user.email "ishautsou@ibagroup.eu"
+#           git config user.name "Ihar Shautsou"
+#           git status
+#           git remote add private https://github.com/${{ github.repository }}.git
+#           git remote update
+#           echo https://github.com/${{ github.repository }}.git
+#           echo ${{ env.GIT_HASH }}
+#           git merge --allow-unrelated-histories
+#           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
+#           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
+#           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
+#             git push -f --all
+#             git push -f --tags
+#           fi
+#           NEW_HASH=$(echo $GITHUB_SHA)
+#           echo ${{ env.GIT_HASH }}
+#           echo $NEW_HASH
+#           curl -L \
+#             -X PATCH \
+#             -H "Accept: application/vnd.github+json" \
+#             -H "Authorization: Bearer ${{ secrets.GIT_PASS }}"\
+#             -H "X-GitHub-Api-Version: 2022-11-28" \
+#              https://api.github.com/repos/IShautsou-ibagroup-eu/argocd-vf-test/actions/variables/LAST_GITHUB_SHA \
+#             -d "{\"name\":\"LAST_GITHUB_SHA\",\"value\":\"$NEW_HASH\"}"
+#           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
+      - name: Clean public repo
+        run: |
+          set -e
+          mkdir -p public_repo
+          mv public_repo2/.git public_repo/
+          rm -rf public_repo2
       - name: Commits to public repo
         run: |
           set -e
-          cd public_repo2
+          cd public_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git status
-          git remote add private https://github.com/${{ github.repository }}.git
-          git remote update
-          echo https://github.com/${{ github.repository }}.git
-          echo ${{ env.GIT_HASH }}
-          git merge --allow-unrelated-histories
+          git clone https://github.com/${{ github.repository }}.git
+          git rm -r .github
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push -f --all
             git push -f --tags
           fi
-          NEW_HASH=$(echo $GITHUB_SHA)
-          echo ${{ env.GIT_HASH }}
-          echo $NEW_HASH
-          curl -L \
-            -X PATCH \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GIT_PASS }}"\
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-             https://api.github.com/repos/IShautsou-ibagroup-eu/argocd-vf-test/actions/variables/LAST_GITHUB_SHA \
-            -d "{\"name\":\"LAST_GITHUB_SHA\",\"value\":\"$NEW_HASH\"}"
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
