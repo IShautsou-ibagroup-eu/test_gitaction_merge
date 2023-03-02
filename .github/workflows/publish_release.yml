@@ -1,0 +1,55 @@
+name: Publish release
+
+on:
+  workflow_dispatch:
+    inputs:
+      RELEASE_VERSION:
+        description: 'Version of release'     
+        required: true
+      DRY_RUN:
+        description: 'Preview changes'
+        default: true
+
+jobs:
+  release_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone private repo
+        uses: actions/checkout@v2
+        with:
+          path: private_repo
+          ref: main
+      - name: Clone public repo
+        uses: actions/checkout@v2
+        with:
+          path: public_repo2
+          token: ${{ secrets.GIT_PASS }}
+          repository: ${{ vars.PUBLIC_REPO }}
+          ref: main
+      - name: Clean public repo
+        run: |
+          set -e
+          mkdir -p public_repo
+          mv public_repo2/.git public_repo/
+          rm -rf public_repo2
+      - name: Copy release
+        run: |
+          set -e
+          rsync -crlvE ./private_repo/ ./public_repo/ \
+          --exclude .git --exclude .travis.yml --exclude .github \
+          --exclude sonar-project.properties
+      - name: Commit to public repo
+        run: |
+          set -e
+          cd public_repo
+          git config user.email "ishautsou@ibagroup.eu"
+          git config user.name "Ihar Shautsou"
+          git status
+          git add ./
+          git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
+          git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
+          if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
+            git push -f --all
+            git push -f --tags
+          fi
+          git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
