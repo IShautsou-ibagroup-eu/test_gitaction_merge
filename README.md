@@ -1,1 +1,1 @@
-# Argocd for vf-test-1
+# Argocd for vf-test-2
