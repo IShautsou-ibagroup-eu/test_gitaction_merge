@@ -58,14 +58,14 @@ jobs:
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push origin main
           fi
-          GIT_HASH=$(echo $GITHUB_SHA)
+          NEW_HASH=$(echo $GITHUB_SHA)
           echo ${{ env.GIT_HASH }}
-          echo $GIT_HASH
+          echo $NEW_HASH
           curl -L \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GIT_PASS }}"\
             -H "X-GitHub-Api-Version: 2022-11-28" \
              https://api.github.com/repos/IShautsou-ibagroup-eu/argocd-vf-test/actions/variables/LAST_GITHUB_SHA \
-            -d "{\"name\":\"LAST_GITHUB_SHA\",\"value\":\"${{ env.GIT_HASH }}\"}"
+            -d "{\"name\":\"LAST_GITHUB_SHA\",\"value\":\"$NEW_HASH\"}"
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
