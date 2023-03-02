@@ -87,7 +87,7 @@ jobs:
         run: |
           set -e
           cd private_repo
-          git remote set-url origin https://github.com/{{ vars.PUBLIC_REPO }}.git
+          git remote set-url origin https://github.com/${{ vars.PUBLIC_REPO }}.git
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
