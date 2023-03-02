@@ -98,7 +98,4 @@ jobs:
             git push -f --all
             git push -f --tags
           fi
-          cd ..
-          rm -rf new-repo
-          git clone https://github.com/IShautsou-ibagroup-eu/test_clean_copy.git new-repo
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
