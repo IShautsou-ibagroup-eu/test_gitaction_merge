@@ -53,7 +53,7 @@ jobs:
           git remote update
           echo https://github.com/${{ github.repository }}.git
           echo ${{ env.GIT_HASH }}
-          git merge --allow-unrelated-histories
+          git merge --allow-unrelated-histories ${{ env.GIT_HASH }}
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
