@@ -91,7 +91,7 @@ jobs:
           git remote add origin https://github.com/IShautsou-ibagroup-eu/test_clean_copy.git
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git rm .github
+          git rm -r .github
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
