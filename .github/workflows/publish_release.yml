@@ -19,6 +19,7 @@ jobs:
         with:
           path: private_repo
           ref: main
+          fetch-depth: 0
       - name: Clone public repo
         uses: actions/checkout@v2
         with:
