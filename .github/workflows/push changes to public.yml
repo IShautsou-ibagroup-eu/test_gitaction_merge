@@ -91,6 +91,7 @@ jobs:
           git config user.name "Ihar Shautsou"
           git remote set-url origin https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}.git
           git fetch
+          git merge --allow-unrelated-histories
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push -f
