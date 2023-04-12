@@ -12,21 +12,21 @@ env:
 jobs:
   release_code:
     runs-on: ubuntu-latest
-    steps:
-      - name: Clone private repo
-        uses: actions/checkout@v2
-        with:
-          path: private_repo
-          ref: main
-          fetch-depth: 0
-      - name: Clone public repo
-        uses: actions/checkout@v2
-        with:
-          path: public_repo2
-          token: ${{ secrets.GIT_PASS }}
-          repository: ${{ vars.PUBLIC_REPO }}
-          ref: main
-          fetch-depth: 0
+#     steps:
+#       - name: Clone private repo
+#         uses: actions/checkout@v2
+#         with:
+#           path: private_repo
+#           ref: main
+#           fetch-depth: 0
+#       - name: Clone public repo
+#         uses: actions/checkout@v2
+#         with:
+#           path: public_repo2
+#           token: ${{ secrets.GIT_PASS }}
+#           repository: ${{ vars.PUBLIC_REPO }}
+#           ref: main
+#           fetch-depth: 0
 #       - name: Clean public repo
 #         run: |
 #           set -e
