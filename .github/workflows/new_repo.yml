@@ -89,12 +89,6 @@ jobs:
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
-          git remote add private https://github.com/IShautsou-ibagroup-eu/argocd-vf-test.git
-          git fetch public
-          git fetch private
-          git checkout -b main
-          git merge public/main --allow-unrelated-histories
-          git merge private/main --allow-unrelated-histories
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push public main -f --all --follow-tags
             git push private main -f --all --follow-tags
