@@ -10,7 +10,8 @@ on:
         description: 'Preview changes'
         default: true
 env:
-  GIT_HASH: ${{ vars.LAST_GITHUB_SHA }}
+  GITHUB_TOKEN: ${{ secrets.GIT_PASS }}
+  GITHUB_REPO: ${{ vars.PUBLIC_REPO }}
 
 jobs:
   release_code:
@@ -89,11 +90,10 @@ jobs:
           cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
-          git fetch public
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git
+          git fetch
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git remote set-url --push origin https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}.git
             git push -f
             git push --tags
           fi
