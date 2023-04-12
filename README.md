@@ -1,1 +1,1 @@
-# Argocd for vf-test-4.0
+# Argocd for vf-test-4
