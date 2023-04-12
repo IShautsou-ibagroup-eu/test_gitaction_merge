@@ -12,7 +12,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GIT_PASS }}
   GITHUB_REPO: ${{ vars.PUBLIC_REPO }}
-  GITHAB_USER: IShautsou-ibagroup-eu
+  GITHUB_USER: IShautsou-ibagroup-eu
 
 jobs:
   release_code:
