@@ -26,14 +26,14 @@ jobs:
           path: private_repo
           ref: main
           fetch-depth: 0
-#       - name: Clone public repo
-#         uses: actions/checkout@v2
-#         with:
-#           path: public_repo2
-#           token: ${{ secrets.GIT_PASS }}
-#           repository: ${{ vars.PUBLIC_REPO }}
-#           ref: main
-#           fetch-depth: 0
+      - name: Clone public repo
+        uses: actions/checkout@v2
+        with:
+          path: public_repo2
+          token: ${{ secrets.GIT_PASS }}
+          repository: ${{ vars.PUBLIC_REPO }}
+          ref: main
+          fetch-depth: 0
 #       - name: Clean public repo
 #         run: |
 #           set -e
@@ -93,11 +93,25 @@ jobs:
           cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git remote set-url --push origin https://${GITHUB_USER}:${GITHUB_PASS}@github.com/${GITHUB_REPO}.git
-          git fetch
+          git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
+          git fetch public
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push -f
-            git push --tags
+            git push public -f
+            git push public --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
+#       - name: Commits to public repo
+#         run: |
+#           set -e
+#           cd private_repo
+#           git config user.email "ishautsou@ibagroup.eu"
+#           git config user.name "Ihar Shautsou"
+#           git remote set-url --push origin https://${GITHUB_USER}:${GITHUB_PASS}@github.com/${GITHUB_REPO}.git
+#           git fetch
+#           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
+#           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
+#             git push -f
+#             git push --tags
+#           fi
+#           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
