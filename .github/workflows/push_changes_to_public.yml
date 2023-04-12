@@ -9,6 +9,8 @@ on:
       DRY_RUN:
         description: 'Preview changes'
         default: true
+permissions:
+  contents: write
 env:
   GITHUB_PASS: ${{ secrets.GIT_PASS }}
   GITHUB_REPO: ${{ vars.PUBLIC_REPO }}
@@ -24,14 +26,14 @@ jobs:
           path: private_repo
           ref: main
           fetch-depth: 0
-      - name: Clone public repo
-        uses: actions/checkout@v2
-        with:
-          path: public_repo2
-          token: ${{ secrets.GIT_PASS }}
-          repository: ${{ vars.PUBLIC_REPO }}
-          ref: main
-          fetch-depth: 0
+#       - name: Clone public repo
+#         uses: actions/checkout@v2
+#         with:
+#           path: public_repo2
+#           token: ${{ secrets.GIT_PASS }}
+#           repository: ${{ vars.PUBLIC_REPO }}
+#           ref: main
+#           fetch-depth: 0
 #       - name: Clean public repo
 #         run: |
 #           set -e
