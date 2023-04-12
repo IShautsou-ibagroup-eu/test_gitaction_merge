@@ -3,9 +3,6 @@ name: New Repo
 on:
   workflow_dispatch:
     inputs:
-      RELEASE_VERSION:
-        description: 'Version of release'     
-        required: true
       DRY_RUN:
         description: 'Preview changes'
         default: true
