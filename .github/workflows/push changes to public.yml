@@ -1,8 +1,11 @@
-name: New Repo
+name: Push changes to public
 
 on:
   workflow_dispatch:
     inputs:
+      RELEASE_VERSION:
+        description: 'Version of release'     
+        required: true
       DRY_RUN:
         description: 'Preview changes'
         default: true
@@ -13,12 +16,12 @@ jobs:
   release_code:
     runs-on: ubuntu-latest
     steps:
-#       - name: Clone private repo
-#         uses: actions/checkout@v2
-#         with:
-#           path: private_repo
-#           ref: main
-#           fetch-depth: 0
+      - name: Clone private repo
+        uses: actions/checkout@v2
+        with:
+          path: private_repo
+          ref: main
+          fetch-depth: 0
 #       - name: Clone public repo
 #         uses: actions/checkout@v2
 #         with:
@@ -83,14 +86,16 @@ jobs:
       - name: Commits to public repo
         run: |
           set -e
-          mkdir -p new_repo
-          cd new_repo
-          git init
+          cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
+          git fetch public
+          git status
+          git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
+          git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push public main -f --all --follow-tags
-            git push private main -f --all --follow-tags
+            git push -f --all
+            git push -f --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
