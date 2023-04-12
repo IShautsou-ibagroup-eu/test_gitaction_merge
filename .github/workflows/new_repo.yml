@@ -86,10 +86,10 @@ jobs:
           mkdir -p new_repo
           cd new_repo
           git init
-          git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
-          git remote add private https://github.com/IShautsou-ibagroup-eu/argocd-vf-test.git
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
+          git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
+          git remote add private https://github.com/IShautsou-ibagroup-eu/argocd-vf-test.git
           git fetch public
           git fetch private
           git checkout -b main
