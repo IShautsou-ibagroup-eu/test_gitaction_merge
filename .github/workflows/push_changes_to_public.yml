@@ -12,6 +12,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GIT_PASS }}
   GITHUB_REPO: ${{ vars.PUBLIC_REPO }}
+  GITHAB_USER: IShautsou-ibagroup-eu
 
 jobs:
   release_code:
@@ -90,7 +91,7 @@ jobs:
           cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git remote set-url --push origin https://IShautsou-ibagroup-eu:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git
+          git remote set-url --push origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git
           git fetch
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
