@@ -93,7 +93,7 @@ jobs:
           git fetch public
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push public main -f --all
-            git push public main -f --tags
+            git push public main
+            git push public main --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
