@@ -10,7 +10,16 @@ on:
         description: 'Preview changes'
         default: true
 permissions:
+  actions: write
+  checks: write
   contents: write
+  deployments: write
+  issues: write
+  packages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
 env:
   GITHUB_PASS: ${{ secrets.GIT_PASS }}
   GITHUB_REPO: ${{ vars.PUBLIC_REPO }}
