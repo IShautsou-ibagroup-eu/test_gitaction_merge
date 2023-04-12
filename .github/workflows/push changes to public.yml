@@ -92,6 +92,7 @@ jobs:
           git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
           git fetch public
           git status
+          git add ./
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
