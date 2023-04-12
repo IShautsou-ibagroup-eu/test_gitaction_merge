@@ -89,11 +89,11 @@ jobs:
           cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git remote set-url public https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}.git
-          git fetch public
+          git remote set-url origin https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}.git
+          git fetch
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push public main -f
-            git push public main --tags
+            git push main -f
+            git push main --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
