@@ -88,22 +88,18 @@ jobs:
           set -e
           mkdir -p new_repo
           cd new_repo
-          git remote remove origin
-          git remote add origin https://github.com/IShautsou-ibagroup-eu/test_clean_copy.git
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git init
-          git remote add public <public_repo_url>
-          git remote add private <private_repo_url>
+          git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
+          git remote add private https://github.com/IShautsou-ibagroup-eu/argocd-vf-test.git
           git fetch public
           git fetch private
           git checkout -b main
           git merge public/main --allow-unrelated-histories
           git merge private/main --allow-unrelated-histories
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push public main -f --all
-            git push public main -f --tags
-            git push private main -f --all
-            git push private main -f --tags
+            git push public main -f --all --follow-tags
+            git push private main -f --all --follow-tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
