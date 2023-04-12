@@ -95,7 +95,7 @@ jobs:
           git commit -m "Release: v${{ github.event.inputs.RELEASE_VERSION }}"
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push -f --all
-            git push -f --tags
+            git push public main -f --all
+            git push public main -f --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
