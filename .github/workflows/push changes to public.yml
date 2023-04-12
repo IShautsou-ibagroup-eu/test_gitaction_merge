@@ -89,7 +89,7 @@ jobs:
           cd private_repo
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
-          git remote add public https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}
+          git remote add public https://x-access-token:${{ secrets.GIT_PASS }}@github.com/${{ vars.PUBLIC_REPO }}.git
           git fetch public
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
