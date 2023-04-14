@@ -103,7 +103,7 @@ jobs:
           git config user.email "ishautsou@ibagroup.eu"
           git config user.name "Ihar Shautsou"
           git remote add private https://github.com/IShautsou-ibagroup-eu/argocd-vf-test.git
-          git pull private
+          git pull private/main
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git push -f
