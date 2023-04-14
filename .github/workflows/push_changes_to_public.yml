@@ -118,6 +118,7 @@ jobs:
           git config user.name "Ihar Shautsou"
           git remote add public https://github.com/IShautsou-ibagroup-eu/test_gitaction_merge.git
           git fetch
+          git merge
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
             git remote set-url --push origin https://IShautsou-ibagroup-eu:$${{ secrets.GIT_PASS }}@github.com/${GITHUB_REPO}.git
