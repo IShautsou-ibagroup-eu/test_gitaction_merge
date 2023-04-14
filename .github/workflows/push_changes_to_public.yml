@@ -120,7 +120,7 @@ jobs:
           git fetch
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git remote set-url --push origin https://${GITHUB_USER}:${GITHUB_PASS}@github.com/${GITHUB_REPO}.git
+            git remote set-url --push origin https://${GITHUB_USER}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPO}.git
             git push origin main -f
             git push origin main --tags
           fi
