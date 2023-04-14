@@ -106,8 +106,8 @@ jobs:
           git fetch public
           git tag -f v${{ github.event.inputs.RELEASE_VERSION }}
           if [[ "${{ github.event.inputs.DRY_RUN }}" != "true" ]]; then
-            git push public -f
-            git push public --tags
+            git push public -f --all
+            git push public --all --tags
           fi
           git log --pretty=format:'%h %ad | %s%d' --graph --date=short -n 10 || true
 #       - name: Commits to public repo
